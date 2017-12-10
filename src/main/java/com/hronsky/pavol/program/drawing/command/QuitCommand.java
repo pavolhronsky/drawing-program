@@ -6,6 +6,6 @@ public class QuitCommand implements Command {
 
   @Override
   public String execute(DrawingEngine engine) {
-    return "Drawing program quit.";
+    return "Drawing program is quiting.";
   }
 }

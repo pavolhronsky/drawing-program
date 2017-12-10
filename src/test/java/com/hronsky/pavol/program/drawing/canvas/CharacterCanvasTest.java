@@ -1,7 +1,5 @@
 package com.hronsky.pavol.program.drawing.canvas;
 
-import com.hronsky.pavol.program.drawing.canvas.Canvas;
-import com.hronsky.pavol.program.drawing.canvas.CharacterCanvas;
 import com.hronsky.pavol.program.drawing.exception.WrongDimensionException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +47,6 @@ public class CharacterCanvasTest {
   public void testSetPixel() {
     canvas.setPixel(HEIGHT - 1, WIDTH - 1, COLORED_PIXEL);
     Assert.assertEquals(COLORED_PIXEL, canvas.getPixel(HEIGHT - 1, WIDTH - 1));
-    System.out.println(canvas.display());
   }
 
   @Test(expected = ArrayIndexOutOfBoundsException.class)

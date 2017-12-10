@@ -2,6 +2,7 @@ package com.hronsky.pavol.program.drawing.drawing;
 
 import com.hronsky.pavol.program.drawing.canvas.Canvas;
 import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
+import com.hronsky.pavol.program.drawing.exception.PointsNotAlignedException;
 
 public class CharacterDrawingEngine implements DrawingEngine {
 
@@ -16,7 +17,7 @@ public class CharacterDrawingEngine implements DrawingEngine {
   }
 
   @Override
-  public void drawLine(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException {
+  public void drawLine(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException, PointsNotAlignedException {
     validatePoint(x1, y1);
     validatePoint(x2, y2);
 
@@ -24,6 +25,8 @@ public class CharacterDrawingEngine implements DrawingEngine {
       drawVerticalLine(x1 - OFFSET, y1 - OFFSET, y2 - OFFSET);
     } else if (y1 == y2) {
       drawHorizontalLine(x1 - OFFSET, x2 - OFFSET, y1 - OFFSET);
+    } else {
+      throw new PointsNotAlignedException("Points (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 +") are not horizontally or vertically aligned.");
     }
   }
 
@@ -58,7 +61,7 @@ public class CharacterDrawingEngine implements DrawingEngine {
   }
 
   @Override
-  public void drawRectangle(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException {
+  public void drawRectangle(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException, PointsNotAlignedException {
     drawLine(x1, y1, x1, y2);
     drawLine(x1, y1, x2, y1);
     drawLine(x2, y1, x2, y2);
