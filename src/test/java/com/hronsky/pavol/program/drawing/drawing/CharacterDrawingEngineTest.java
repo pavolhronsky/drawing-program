@@ -2,6 +2,7 @@ package com.hronsky.pavol.program.drawing.drawing;
 
 import com.hronsky.pavol.program.drawing.canvas.Canvas;
 import com.hronsky.pavol.program.drawing.canvas.CharacterCanvas;
+import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 import com.hronsky.pavol.program.drawing.exception.WrongDimensionException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,49 +25,49 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testDrawHorizontalLine1() {
+  public void testDrawHorizontalLine1() throws PointOutOfCanvasException {
     drawingEngine.drawLine(0, 1, 1, 1);
     String expected = "-----\n|   |\n|xx |\n|   |\n|   |\n-----\n";
     Assert.assertEquals(expected, drawingEngine.displayCanvas());
   }
 
   @Test
-  public void testDrawHorizontalLine2() {
+  public void testDrawHorizontalLine2() throws PointOutOfCanvasException {
     drawingEngine.drawLine(1, 1, 0, 1);
     String expected = "-----\n|   |\n|xx |\n|   |\n|   |\n-----\n";
     Assert.assertEquals(expected, drawingEngine.displayCanvas());
   }
 
   @Test
-  public void testDrawVerticalLine1() {
+  public void testDrawVerticalLine1() throws PointOutOfCanvasException {
     drawingEngine.drawLine(1, 1, 1, 3);
     String expected = "-----\n|   |\n| x |\n| x |\n| x |\n-----\n";
     Assert.assertEquals(expected, drawingEngine.displayCanvas());
   }
 
   @Test
-  public void testDrawVerticalLine2() {
+  public void testDrawVerticalLine2() throws PointOutOfCanvasException {
     drawingEngine.drawLine(1, 3, 1, 1);
     String expected = "-----\n|   |\n| x |\n| x |\n| x |\n-----\n";
     Assert.assertEquals(expected, drawingEngine.displayCanvas());
   }
 
   @Test
-  public void testDrawRectangle() {
+  public void testDrawRectangle() throws PointOutOfCanvasException {
     drawingEngine.drawRectangle(0, 0, 2, 3);
     String expected = "-----\n|xxx|\n|x x|\n|x x|\n|xxx|\n-----\n";
     Assert.assertEquals(expected, drawingEngine.displayCanvas());
   }
 
   @Test
-  public void fillEmptyCanvasWithColour() {
+  public void fillEmptyCanvasWithColour() throws PointOutOfCanvasException {
     drawingEngine.fillWithColour(0, 0, 'c');
     String after = "-----\n|ccc|\n|ccc|\n|ccc|\n|ccc|\n-----\n";
     Assert.assertEquals(after, drawingEngine.displayCanvas());
   }
 
   @Test
-  public void testFillInsideFullSizedRectangle() {
+  public void testFillInsideFullSizedRectangle() throws PointOutOfCanvasException {
     drawingEngine.drawRectangle(0, 1, 2, 3);
     drawingEngine.fillWithColour(1, 2, 'c');
     String expected = "-----\n|   |\n|xxx|\n|xcx|\n|xxx|\n-----\n";
@@ -74,7 +75,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testFillBorderFullSizedRectangle() {
+  public void testFillBorderFullSizedRectangle() throws PointOutOfCanvasException {
     drawingEngine.drawRectangle(0, 1, 2, 3);
     drawingEngine.fillWithColour(0, 1, 'c');
     String expected = "-----\n|   |\n|ccc|\n|c c|\n|ccc|\n-----\n";
@@ -82,7 +83,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testFillPartialRectangleInside() {
+  public void testFillPartialRectangleInside() throws PointOutOfCanvasException {
     drawingEngine.drawLine(0, 1, 1, 1);
     drawingEngine.drawLine(1, 1, 1, 3);
     drawingEngine.fillWithColour(0, 3, 'c');
@@ -91,7 +92,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testFillPartialRectangleOutside() {
+  public void testFillPartialRectangleOutside() throws PointOutOfCanvasException {
     drawingEngine.drawLine(0, 1, 1, 1);
     drawingEngine.drawLine(1, 1, 1, 3);
     drawingEngine.fillWithColour(0, 0, 'c');
@@ -100,7 +101,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testFillWithHorizontalLine() {
+  public void testFillWithHorizontalLine() throws PointOutOfCanvasException {
     drawingEngine.drawLine(0, 1, 1, 1);
     drawingEngine.fillWithColour(0, 0, 'c');
     String expected = "-----\n|ccc|\n|xxc|\n|ccc|\n|ccc|\n-----\n";
@@ -108,7 +109,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testFillHorizontalLine() {
+  public void testFillHorizontalLine() throws PointOutOfCanvasException {
     drawingEngine.drawLine(0, 1, 1, 1);
     drawingEngine.fillWithColour(0, 1, 'c');
     String expected = "-----\n|   |\n|cc |\n|   |\n|   |\n-----\n";
@@ -116,7 +117,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testFillWithVerticalLine() {
+  public void testFillWithVerticalLine() throws PointOutOfCanvasException {
     drawingEngine.drawLine(1, 0, 1, 2);
     drawingEngine.fillWithColour(0, 0, 'c');
     String expected = "-----\n|cxc|\n|cxc|\n|cxc|\n|ccc|\n-----\n";
@@ -124,7 +125,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testFillVerticalLine() {
+  public void testFillVerticalLine() throws PointOutOfCanvasException {
     drawingEngine.drawLine(1, 0, 1, 2);
     drawingEngine.fillWithColour(1, 0, 'c');
     String expected = "-----\n| c |\n| c |\n| c |\n|   |\n-----\n";
@@ -138,7 +139,7 @@ public class CharacterDrawingEngineTest {
   }
 
   @Test
-  public void testSampleIO() throws WrongDimensionException {
+  public void testSampleIO() throws WrongDimensionException, PointOutOfCanvasException {
     Canvas canvas = new CharacterCanvas(20, 4);
     drawingEngine.setCanvas(canvas);
 

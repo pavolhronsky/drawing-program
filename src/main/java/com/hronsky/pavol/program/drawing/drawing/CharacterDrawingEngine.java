@@ -1,10 +1,12 @@
 package com.hronsky.pavol.program.drawing.drawing;
 
 import com.hronsky.pavol.program.drawing.canvas.Canvas;
+import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 
 public class CharacterDrawingEngine implements DrawingEngine {
 
   private static final char LINE_CHARACTER = 'x';
+  private static final int OFFSET = 1;
 
   private Canvas canvas;
 
@@ -14,11 +16,20 @@ public class CharacterDrawingEngine implements DrawingEngine {
   }
 
   @Override
-  public void drawLine(int x1, int y1, int x2, int y2) {
+  public void drawLine(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException {
+    validatePoint(x1, y1);
+    validatePoint(x2, y2);
+
     if (x1 == x2) {
-      drawVerticalLine(x1, y1, y2);
+      drawVerticalLine(x1 - OFFSET, y1 - OFFSET, y2 - OFFSET);
     } else if (y1 == y2) {
-      drawHorizontalLine(x1, x2, y1);
+      drawHorizontalLine(x1 - OFFSET, x2 - OFFSET, y1 - OFFSET);
+    }
+  }
+
+  private void validatePoint(int x, int y) throws PointOutOfCanvasException {
+    if (x < 1 || x > canvas.getWidth() || y < 1 || y > canvas.getHeight()) {
+      throw new PointOutOfCanvasException("Point (" + x + ", " + y + ") does not lie inside canvas.");
     }
   }
 
@@ -47,7 +58,7 @@ public class CharacterDrawingEngine implements DrawingEngine {
   }
 
   @Override
-  public void drawRectangle(int x1, int y1, int x2, int y2) {
+  public void drawRectangle(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException {
     drawLine(x1, y1, x1, y2);
     drawLine(x1, y1, x2, y1);
     drawLine(x2, y1, x2, y2);
@@ -55,9 +66,11 @@ public class CharacterDrawingEngine implements DrawingEngine {
   }
 
   @Override
-  public void fillWithColour(int x, int y, char newColour) {
-    char oldColour = canvas.getPixel(y, x);
-    fillWithColour(oldColour, x, y, newColour);
+  public void fillWithColour(int x, int y, char newColour) throws PointOutOfCanvasException {
+    validatePoint(x, y);
+
+    char oldColour = canvas.getPixel(y - OFFSET, x - OFFSET);
+    fillWithColour(oldColour, x - OFFSET, y - OFFSET, newColour);
   }
 
   private void fillWithColour(char oldColour, int x, int y, char newColour) {
