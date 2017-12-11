@@ -24,7 +24,7 @@ java -jar build/libs/drawing-program-1.0.jar
 
 ### Windows
 ```
-gradlew.bat clean build jar
+gradlew clean build jar
 java -jar build/libs/drawing-program-1.0.jar
 ```
 

@@ -18,8 +18,8 @@ public class CharacterDrawingEngine implements DrawingEngine {
 
   @Override
   public void drawLine(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException, PointsNotAlignedException {
-    validatePoint(x1, y1);
-    validatePoint(x2, y2);
+    validatePointInsideCanvas(x1, y1);
+    validatePointInsideCanvas(x2, y2);
 
     if (x1 == x2) {
       drawVerticalLine(x1 - OFFSET, y1 - OFFSET, y2 - OFFSET);
@@ -30,7 +30,7 @@ public class CharacterDrawingEngine implements DrawingEngine {
     }
   }
 
-  private void validatePoint(int x, int y) throws PointOutOfCanvasException {
+  private void validatePointInsideCanvas(int x, int y) throws PointOutOfCanvasException {
     if (x < 1 || x > canvas.getWidth() || y < 1 || y > canvas.getHeight()) {
       throw new PointOutOfCanvasException("Point (" + x + ", " + y + ") does not lie inside canvas.");
     }
@@ -70,7 +70,7 @@ public class CharacterDrawingEngine implements DrawingEngine {
 
   @Override
   public void fillWithColour(int x, int y, char newColour) throws PointOutOfCanvasException {
-    validatePoint(x, y);
+    validatePointInsideCanvas(x, y);
 
     char oldColour = canvas.getPixel(y - OFFSET, x - OFFSET);
     fillWithColour(oldColour, x - OFFSET, y - OFFSET, newColour);
