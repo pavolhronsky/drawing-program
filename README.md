@@ -30,7 +30,7 @@ java -jar build/libs/drawing-program-1.0.jar
 
 ## Assumptions
 * The minimal value of canvas' length or width is 1. The maximal value is `Integer.MAX_VALUE`.
-* A line must be either horizontal or vertical.It can also be a single point.
+* A line must be either horizontal or vertical. It can also be a single point.
 * A rectangle can also be a single point.
 * Any character can be used as colour.
 * A bucket fill tool can change colour of line ('x') as well.
