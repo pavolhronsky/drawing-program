@@ -53,6 +53,7 @@ public class CharacterCanvas implements Canvas {
   public String display() {
     StringBuilder builder = new StringBuilder();
 
+    builder.append(EOL);
     for (int top = 0; top < getWidth() + 2; top++) {
       builder.append(TOP_BOTTOM);
     }
@@ -69,7 +70,6 @@ public class CharacterCanvas implements Canvas {
     for (int top = 0; top < getWidth() + 2; top++) {
       builder.append(TOP_BOTTOM);
     }
-    builder.append(EOL);
 
     return builder.toString();
   }

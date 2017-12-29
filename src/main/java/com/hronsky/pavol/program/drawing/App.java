@@ -11,8 +11,12 @@ import com.hronsky.pavol.program.drawing.exception.UndefinedCommandException;
 import com.hronsky.pavol.program.drawing.exception.WrongDimensionException;
 import com.hronsky.pavol.program.drawing.exception.WrongInputTypeException;
 import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class App {
+
+  private static final Logger LOGGER = LogManager.getLogger(App.class);
 
   private Scanner scanner;
   private CommandFactory factory;
@@ -30,18 +34,18 @@ public class App {
   }
 
   private void run() {
-    System.out.println("Welcome to this drawing program!");
+    LOGGER.info("Welcome to this drawing program!");
     String input = "S";
 
     while (!input.equals("Q")) {
-      System.out.print("Enter command: ");
+      LOGGER.info("Enter command: ");
       input = scanner.nextLine();
 
       try {
         Command command = factory.create(input);
-        System.out.println(command.execute(engine));
+        LOGGER.info(command.execute(engine));
       } catch (UndefinedCommandException | PointOutOfCanvasException | InvalidNumberOfParametersException | WrongDimensionException | WrongInputTypeException | PointsNotAlignedException e) {
-        System.out.println("ERROR: " + e.getMessage());
+        LOGGER.info("ERROR: " + e.getMessage());
       }
     }
   }
