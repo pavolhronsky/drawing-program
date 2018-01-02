@@ -1,7 +1,7 @@
 package com.hronsky.pavol.program.drawing;
 
 import com.hronsky.pavol.program.drawing.command.Command;
-import com.hronsky.pavol.program.drawing.command.CommandFactory;
+import com.hronsky.pavol.program.drawing.command.factory.CharacterCommandFactory;
 import com.hronsky.pavol.program.drawing.drawing.CharacterDrawingEngine;
 import com.hronsky.pavol.program.drawing.drawing.DrawingEngine;
 import com.hronsky.pavol.program.drawing.exception.InvalidNumberOfParametersException;
@@ -19,12 +19,12 @@ public class App {
   private static final Logger LOGGER = LogManager.getLogger(App.class);
 
   private Scanner scanner;
-  private CommandFactory factory;
+  private CharacterCommandFactory factory;
   private DrawingEngine engine;
 
   public App() {
     scanner = new Scanner(System.in);
-    factory = new CommandFactory();
+    factory = new CharacterCommandFactory();
     engine = new CharacterDrawingEngine();
   }
 

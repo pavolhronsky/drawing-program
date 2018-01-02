@@ -9,9 +9,9 @@ public class CharacterCanvasTest {
 
   private static final int WIDTH = 1;
   private static final int HEIGHT = 2;
-  private static final char COLORED_PIXEL = 'c';
+  private static final Character COLORED_PIXEL = 'c';
 
-  private Canvas canvas;
+  private Canvas<Character> canvas;
 
   @Before
   public void setUp() throws WrongDimensionException {
@@ -61,7 +61,7 @@ public class CharacterCanvasTest {
 
   @Test
   public void testDisplay() {
-    String expected = "---\n| |\n| |\n---\n";
+    String expected = "\n---\n| |\n| |\n---";
     Assert.assertEquals(expected, canvas.display());
   }
 }

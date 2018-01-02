@@ -5,14 +5,14 @@ import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 import com.hronsky.pavol.program.drawing.exception.PointsNotAlignedException;
 import java.util.Objects;
 
-public class LineCommand implements Command {
+public class LineCommand<T> implements Command<T> {
 
   private final int x1;
   private final int y1;
   private final int x2;
   private final int y2;
 
-  LineCommand(int x1, int y1, int x2, int y2) {
+  public LineCommand(int x1, int y1, int x2, int y2) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
@@ -20,7 +20,7 @@ public class LineCommand implements Command {
   }
 
   @Override
-  public String execute(DrawingEngine engine) throws PointOutOfCanvasException, PointsNotAlignedException {
+  public String execute(DrawingEngine<T> engine) throws PointOutOfCanvasException, PointsNotAlignedException {
     engine.drawLine(x1, y1, x2, y2);
     return engine.displayCanvas();
   }

@@ -1,5 +1,6 @@
 package com.hronsky.pavol.program.drawing.command;
 
+import com.hronsky.pavol.program.drawing.command.factory.CharacterCommandFactory;
 import com.hronsky.pavol.program.drawing.exception.InvalidNumberOfParametersException;
 import com.hronsky.pavol.program.drawing.exception.UndefinedCommandException;
 import com.hronsky.pavol.program.drawing.exception.WrongInputTypeException;
@@ -7,13 +8,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CommandFactoryTest {
+public class CharacterCommandFactoryTest {
 
-  private CommandFactory factory;
+  private CharacterCommandFactory factory;
 
   @Before
   public void before() {
-    factory = new CommandFactory();
+    factory = new CharacterCommandFactory();
   }
 
   @Test(expected = InvalidNumberOfParametersException.class)
@@ -48,35 +49,35 @@ public class CommandFactoryTest {
 
   @Test
   public void testCreateCreateCommand() throws WrongInputTypeException, InvalidNumberOfParametersException, UndefinedCommandException {
-    Command expected = new CreateCommand(1, 1);
-    Command actual = factory.create("C 1 1");
+    Command<Character> expected = new CreateCommand<>(1, 1);
+    Command<Character> actual = factory.create("C 1 1");
     Assert.assertEquals(expected, actual);
   }
 
   @Test
   public void testCreateLineCommand() throws WrongInputTypeException, InvalidNumberOfParametersException, UndefinedCommandException {
-    Command expected = new LineCommand(1, 1, 2, 2);
-    Command actual = factory.create("L 1 1 2 2");
+    Command<Character> expected = new LineCommand<>(1, 1, 2, 2);
+    Command<Character> actual = factory.create("L 1 1 2 2");
     Assert.assertEquals(expected, actual);
   }
 
   @Test
   public void testCreateRectangleCommand() throws WrongInputTypeException, InvalidNumberOfParametersException, UndefinedCommandException {
-    Command expected = new RectangleCommand(1, 1, 2, 2);
-    Command actual = factory.create("R 1 1 2 2");
+    Command<Character> expected = new RectangleCommand<>(1, 1, 2, 2);
+    Command<Character> actual = factory.create("R 1 1 2 2");
     Assert.assertEquals(expected, actual);
   }
 
   @Test
   public void testCreateFillCommand() throws WrongInputTypeException, InvalidNumberOfParametersException, UndefinedCommandException {
-    Command expected = new FillCommand(1, 1, 'c');
-    Command actual = factory.create("B 1 1 c");
+    Command<Character> expected = new FillCommand<>(1, 1, 'c');
+    Command<Character> actual = factory.create("B 1 1 c");
     Assert.assertEquals(expected, actual);
   }
 
   @Test
   public void testCreateQuitCommand() throws WrongInputTypeException, InvalidNumberOfParametersException, UndefinedCommandException {
-    Command actual = factory.create("Q");
+    Command<Character> actual = factory.create("Q");
     Assert.assertTrue(actual instanceof QuitCommand);
   }
 }

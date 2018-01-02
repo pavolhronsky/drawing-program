@@ -5,7 +5,7 @@ import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 import com.hronsky.pavol.program.drawing.exception.PointsNotAlignedException;
 import com.hronsky.pavol.program.drawing.exception.WrongDimensionException;
 
-public interface Command {
+public interface Command<T> {
 
-  String execute(DrawingEngine engine) throws WrongDimensionException, PointOutOfCanvasException, PointsNotAlignedException;
+  String execute(DrawingEngine<T> engine) throws WrongDimensionException, PointOutOfCanvasException, PointsNotAlignedException;
 }

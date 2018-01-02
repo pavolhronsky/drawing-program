@@ -4,20 +4,20 @@ import com.hronsky.pavol.program.drawing.drawing.DrawingEngine;
 import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 import java.util.Objects;
 
-public class FillCommand implements Command {
+public class FillCommand<T> implements Command<T> {
 
   private final int x;
   private final int y;
-  private final char c;
+  private final T c;
 
-  FillCommand(int x, int y, char c) {
+  public FillCommand(int x, int y, T c) {
     this.x = x;
     this.y = y;
     this.c = c;
   }
 
   @Override
-  public String execute(DrawingEngine engine) throws PointOutOfCanvasException {
+  public String execute(DrawingEngine<T> engine) throws PointOutOfCanvasException {
     engine.fillWithColour(x, y, c);
     return engine.displayCanvas();
   }

@@ -1,14 +1,14 @@
 package com.hronsky.pavol.program.drawing.canvas;
 
-public interface Canvas {
+public interface Canvas<T> {
 
   int getWidth();
 
   int getHeight();
 
-  char getPixel(int row, int column);
+  T getPixel(int row, int column);
 
-  void setPixel(int row, int column, char pixel);
+  void setPixel(int row, int column, T pixel);
 
   String display();
 }

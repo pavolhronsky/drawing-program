@@ -4,12 +4,12 @@ import com.hronsky.pavol.program.drawing.canvas.Canvas;
 import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 import com.hronsky.pavol.program.drawing.exception.PointsNotAlignedException;
 
-public class CharacterDrawingEngine implements DrawingEngine {
+public class CharacterDrawingEngine implements DrawingEngine<Character> {
 
   private static final char LINE_CHARACTER = 'x';
   private static final int OFFSET = 1;
 
-  private Canvas canvas;
+  private Canvas<Character> canvas;
 
   @Override
   public void setCanvas(Canvas canvas) {
@@ -26,7 +26,7 @@ public class CharacterDrawingEngine implements DrawingEngine {
     } else if (y1 == y2) {
       drawHorizontalLine(x1 - OFFSET, x2 - OFFSET, y1 - OFFSET);
     } else {
-      throw new PointsNotAlignedException("Points (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 +") are not horizontally or vertically aligned.");
+      throw new PointsNotAlignedException("Points (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ") are not horizontally or vertically aligned.");
     }
   }
 
@@ -69,7 +69,7 @@ public class CharacterDrawingEngine implements DrawingEngine {
   }
 
   @Override
-  public void fillWithColour(int x, int y, char newColour) throws PointOutOfCanvasException {
+  public void fillWithColour(int x, int y, Character newColour) throws PointOutOfCanvasException {
     validatePointInsideCanvas(x, y);
 
     char oldColour = canvas.getPixel(y - OFFSET, x - OFFSET);
@@ -89,11 +89,6 @@ public class CharacterDrawingEngine implements DrawingEngine {
     fillWithColour(oldColour, x, Math.max(0, y - 1), newColour);
     fillWithColour(oldColour, Math.min(canvas.getWidth() - 1, x + 1), y, newColour);
     fillWithColour(oldColour, x, Math.min(canvas.getHeight() - 1, y + 1), newColour);
-
-    fillWithColour(oldColour, Math.max(0, x - 1), Math.max(0, y - 1), newColour);
-    fillWithColour(oldColour, Math.min(canvas.getWidth() - 1, x + 1), Math.max(0, y - 1), newColour);
-    fillWithColour(oldColour, Math.min(canvas.getWidth() - 1, x + 1), Math.min(canvas.getHeight() - 1, y + 1), newColour);
-    fillWithColour(oldColour, Math.max(0, x - 1), Math.min(canvas.getHeight() - 1, y + 1), newColour);
   }
 
   @Override

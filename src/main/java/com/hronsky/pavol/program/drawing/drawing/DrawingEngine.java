@@ -4,15 +4,15 @@ import com.hronsky.pavol.program.drawing.canvas.Canvas;
 import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 import com.hronsky.pavol.program.drawing.exception.PointsNotAlignedException;
 
-public interface DrawingEngine {
+public interface DrawingEngine<T> {
 
-  void setCanvas(Canvas canvas);
+  void setCanvas(Canvas<T> canvas);
 
   void drawLine(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException, PointsNotAlignedException;
 
   void drawRectangle(int x1, int y1, int x2, int y2) throws PointOutOfCanvasException, PointsNotAlignedException;
 
-  void fillWithColour(int x, int y, char colour) throws PointOutOfCanvasException;
+  void fillWithColour(int x, int y, T colour) throws PointOutOfCanvasException;
 
   String displayCanvas();
 }

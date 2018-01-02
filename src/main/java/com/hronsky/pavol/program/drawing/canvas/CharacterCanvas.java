@@ -2,13 +2,13 @@ package com.hronsky.pavol.program.drawing.canvas;
 
 import com.hronsky.pavol.program.drawing.exception.WrongDimensionException;
 
-public class CharacterCanvas implements Canvas {
+public class CharacterCanvas implements Canvas<Character> {
 
-  public static final char EMPTY_PIXEL = ' ';
+  public static final Character EMPTY_PIXEL = ' ';
 
-  private static final char TOP_BOTTOM = '-';
-  private static final char LEFT_RIGHT = '|';
-  private static final char EOL = '\n';
+  private static final Character TOP_BOTTOM = '-';
+  private static final Character LEFT_RIGHT = '|';
+  private static final Character EOL = '\n';
 
   private char[][] pixelField;
 
@@ -40,12 +40,12 @@ public class CharacterCanvas implements Canvas {
   }
 
   @Override
-  public char getPixel(int row, int column) {
+  public Character getPixel(int row, int column) {
     return pixelField[row][column];
   }
 
   @Override
-  public void setPixel(int row, int column, char pixel) {
+  public void setPixel(int row, int column, Character pixel) {
     pixelField[row][column] = pixel;
   }
 
