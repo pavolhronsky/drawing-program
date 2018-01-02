@@ -1,11 +1,5 @@
-package com.hronsky.pavol.program.drawing.command.factory;
+package com.hronsky.pavol.program.drawing.command;
 
-import com.hronsky.pavol.program.drawing.command.Command;
-import com.hronsky.pavol.program.drawing.command.CreateCommand;
-import com.hronsky.pavol.program.drawing.command.FillCommand;
-import com.hronsky.pavol.program.drawing.command.LineCommand;
-import com.hronsky.pavol.program.drawing.command.QuitCommand;
-import com.hronsky.pavol.program.drawing.command.RectangleCommand;
 import com.hronsky.pavol.program.drawing.converter.CharacterInputConverter;
 import com.hronsky.pavol.program.drawing.converter.InputConverter;
 import com.hronsky.pavol.program.drawing.converter.IntegerInputConverter;
@@ -13,17 +7,17 @@ import com.hronsky.pavol.program.drawing.exception.InvalidNumberOfParametersExce
 import com.hronsky.pavol.program.drawing.exception.UndefinedCommandException;
 import com.hronsky.pavol.program.drawing.exception.WrongInputTypeException;
 
-public class CharacterCommandFactory {
+public class CommandFactory {
 
   private InputConverter<Integer> integerConverter;
   private InputConverter<Character> characterConverter;
 
-  public CharacterCommandFactory() {
+  public CommandFactory() {
     integerConverter = new IntegerInputConverter();
     characterConverter = new CharacterInputConverter();
   }
 
-  public Command<Character> create(String rawInput) throws InvalidNumberOfParametersException, UndefinedCommandException, WrongInputTypeException {
+  public Command create(String rawInput) throws InvalidNumberOfParametersException, UndefinedCommandException, WrongInputTypeException {
     String[] inputToArray = rawInput.trim().split(" ");
 
     switch (inputToArray[0]) {
@@ -42,7 +36,7 @@ public class CharacterCommandFactory {
     }
   }
 
-  private Command<Character> createCreateCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
+  private Command createCreateCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
     if (inputToArray.length < 3) {
       throw new InvalidNumberOfParametersException("Command C requires 2 integer inputs.");
     }
@@ -50,10 +44,10 @@ public class CharacterCommandFactory {
     int width = integerConverter.convert(inputToArray[1]);
     int height = integerConverter.convert(inputToArray[2]);
 
-    return new CreateCommand<>(width, height);
+    return new CreateCommand(width, height);
   }
 
-  private Command<Character> createLineCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
+  private Command createLineCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
     if (inputToArray.length < 5) {
       throw new InvalidNumberOfParametersException("Command L requires 4 integer inputs.");
     }
@@ -63,10 +57,10 @@ public class CharacterCommandFactory {
     int x2 = integerConverter.convert(inputToArray[3]);
     int y2 = integerConverter.convert(inputToArray[4]);
 
-    return new LineCommand<>(x1, y1, x2, y2);
+    return new LineCommand(x1, y1, x2, y2);
   }
 
-  private Command<Character> createRectangleCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
+  private Command createRectangleCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
     if (inputToArray.length < 5) {
       throw new InvalidNumberOfParametersException("Command R requires 4 integer inputs.");
     }
@@ -76,10 +70,10 @@ public class CharacterCommandFactory {
     int x2 = integerConverter.convert(inputToArray[3]);
     int y2 = integerConverter.convert(inputToArray[4]);
 
-    return new RectangleCommand<>(x1, y1, x2, y2);
+    return new RectangleCommand(x1, y1, x2, y2);
   }
 
-  private Command<Character> createFillCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
+  private Command createFillCommand(String[] inputToArray) throws InvalidNumberOfParametersException, WrongInputTypeException {
     if (inputToArray.length < 4) {
       throw new InvalidNumberOfParametersException("Command B requires 2 integer inputs and 1 colour character.");
     }
@@ -88,10 +82,10 @@ public class CharacterCommandFactory {
     int y = integerConverter.convert(inputToArray[2]);
     char c = characterConverter.convert(inputToArray[3]);
 
-    return new FillCommand<>(x, y, c);
+    return new FillCommand(x, y, c);
   }
 
-  private Command<Character> createQuitCommand() {
-    return new QuitCommand<>();
+  private Command createQuitCommand() {
+    return new QuitCommand();
   }
 }

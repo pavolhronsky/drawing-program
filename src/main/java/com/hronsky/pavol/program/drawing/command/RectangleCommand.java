@@ -5,14 +5,14 @@ import com.hronsky.pavol.program.drawing.exception.PointOutOfCanvasException;
 import com.hronsky.pavol.program.drawing.exception.PointsNotAlignedException;
 import java.util.Objects;
 
-public class RectangleCommand<T> implements Command<T> {
+public class RectangleCommand implements Command {
 
   private final int x1;
   private final int y1;
   private final int x2;
   private final int y2;
 
-  public RectangleCommand(int x1, int y1, int x2, int y2) {
+  RectangleCommand(int x1, int y1, int x2, int y2) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
@@ -20,9 +20,8 @@ public class RectangleCommand<T> implements Command<T> {
   }
 
   @Override
-  public String execute(DrawingEngine<T> engine) throws PointOutOfCanvasException, PointsNotAlignedException {
+  public void execute(DrawingEngine<Character> engine) throws PointOutOfCanvasException, PointsNotAlignedException {
     engine.drawRectangle(x1, y1, x2, y2);
-    return engine.displayCanvas();
   }
 
   @Override
@@ -42,7 +41,6 @@ public class RectangleCommand<T> implements Command<T> {
 
   @Override
   public int hashCode() {
-
     return Objects.hash(x1, y1, x2, y2);
   }
 }

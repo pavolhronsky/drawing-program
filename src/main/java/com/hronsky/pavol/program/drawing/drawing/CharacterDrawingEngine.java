@@ -12,7 +12,7 @@ public class CharacterDrawingEngine implements DrawingEngine<Character> {
   private Canvas<Character> canvas;
 
   @Override
-  public void setCanvas(Canvas canvas) {
+  public void setCanvas(Canvas<Character> canvas) {
     this.canvas = canvas;
   }
 

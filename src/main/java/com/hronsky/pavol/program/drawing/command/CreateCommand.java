@@ -6,21 +6,20 @@ import com.hronsky.pavol.program.drawing.drawing.DrawingEngine;
 import com.hronsky.pavol.program.drawing.exception.WrongDimensionException;
 import java.util.Objects;
 
-public class CreateCommand<T> implements Command<T> {
+public class CreateCommand implements Command {
 
   private final int width;
   private final int height;
 
-  public CreateCommand(int width, int height) {
+  CreateCommand(int width, int height) {
     this.width = width;
     this.height = height;
   }
 
   @Override
-  public String execute(DrawingEngine<T> engine) throws WrongDimensionException {
-    Canvas canvas = new CharacterCanvas(width, height);
+  public void execute(DrawingEngine<Character> engine) throws WrongDimensionException {
+    Canvas<Character> canvas = new CharacterCanvas(width, height);
     engine.setCanvas(canvas);
-    return engine.displayCanvas();
   }
 
   @Override
@@ -38,7 +37,6 @@ public class CreateCommand<T> implements Command<T> {
 
   @Override
   public int hashCode() {
-
     return Objects.hash(width, height);
   }
 }

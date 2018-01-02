@@ -1,7 +1,7 @@
 package com.hronsky.pavol.program.drawing;
 
 import com.hronsky.pavol.program.drawing.command.Command;
-import com.hronsky.pavol.program.drawing.command.factory.CharacterCommandFactory;
+import com.hronsky.pavol.program.drawing.command.CommandFactory;
 import com.hronsky.pavol.program.drawing.drawing.CharacterDrawingEngine;
 import com.hronsky.pavol.program.drawing.drawing.DrawingEngine;
 import com.hronsky.pavol.program.drawing.exception.InvalidNumberOfParametersException;
@@ -19,12 +19,12 @@ public class App {
   private static final Logger LOGGER = LogManager.getLogger(App.class);
 
   private Scanner scanner;
-  private CharacterCommandFactory factory;
-  private DrawingEngine engine;
+  private CommandFactory factory;
+  private DrawingEngine<Character> engine;
 
-  public App() {
+  private App() {
     scanner = new Scanner(System.in);
-    factory = new CharacterCommandFactory();
+    factory = new CommandFactory();
     engine = new CharacterDrawingEngine();
   }
 
@@ -43,7 +43,9 @@ public class App {
 
       try {
         Command command = factory.create(input);
-        LOGGER.info(command.execute(engine));
+        command.execute(engine);
+        String canvas = engine.displayCanvas();
+        LOGGER.info(canvas);
       } catch (UndefinedCommandException | PointOutOfCanvasException | InvalidNumberOfParametersException | WrongDimensionException | WrongInputTypeException | PointsNotAlignedException e) {
         LOGGER.info("ERROR: " + e.getMessage());
       }
